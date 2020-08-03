@@ -1,0 +1,14 @@
+POST https://localhost:5001/api/contacts/
+Content-Type: application/json
+    {
+        "name": "Peder Dass",
+        "phoneNumber": "81549300",
+        "age": 49
+    }
+POST https://localhost:5001/api/contacts/
+Content-Type: application/json
+    {
+        "name": "Marius Johan Haaland",
+        "phoneNumber": "67590387",
+        "age": 29
+    }
