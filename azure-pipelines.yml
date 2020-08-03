@@ -3,14 +3,19 @@
 # Add steps that publish symbols, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
-trigger:
-    - master
-
+stages:
+- stage: test_stage
+  displayName: Test stage
+  dependsOn: []
+  
+  jobs:
+  - job: test_job
+    displayName: TestPhoneList
     pool:
       vmImage: 'windows-latest'
     steps:
     - task: DotNetCoreCLI@2
-      inputs:
+        inputs:
         command: 'test'
         projects: '/PhoneListTests/PhoneListTests.csproj'
     
