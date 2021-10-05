@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PhoneList.Events;
 using PhoneList.Models;
 
 namespace PhoneList.Data
 {
     public class SqlContactsRepo : IContactsRepo
     {
+
         private readonly ContactsContext _context;
+        public event EventHandler<TransactionProcessedEventArgs> OnTransactionProcessed;
+
         public SqlContactsRepo(ContactsContext context)
         {
             _context = context;
@@ -18,6 +22,10 @@ namespace PhoneList.Data
          if(contact == null)
             {
                 throw new ArgumentNullException(nameof(contact));
+            }
+         if(OnTransactionProcessed != null)
+            {
+                OnTransactionProcessed(this, new TransactionProcessedEventArgs(contact));
             }
             _context.Contacts.Add(contact);
         }

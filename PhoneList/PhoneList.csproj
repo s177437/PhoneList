@@ -11,6 +11,7 @@
     <Folder Include="Data\" />
     <Folder Include="Dtos\" />
     <Folder Include="Profiles\" />
+    <Folder Include="Events\" />
   </ItemGroup>
 
 

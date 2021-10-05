@@ -18,12 +18,15 @@ namespace PhoneList.Controllers
     public class HomeController : ControllerBase
     {
         private readonly IContactsRepo _repository;
+        private readonly IAuditService _auditService;
         private readonly IMapper _mapper;
 
-        public HomeController(IContactsRepo repository, IMapper mapper)
+        public HomeController(IContactsRepo repository, IMapper mapper, IAuditService auditservice)
         {
+            _auditService = auditservice;
             _repository = repository;
             _mapper = mapper;
+            _auditService.Subscribe(_repository);
         }
 
         //GET /api/contacts

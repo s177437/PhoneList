@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using PhoneList.Data;
+using PhoneList.Events;
 using PhoneList.Models;
 
 namespace PhoneListTests
@@ -19,11 +20,17 @@ namespace PhoneListTests
             };
         }
 
+        public event EventHandler<TransactionProcessedEventArgs> OnTransactionProcessed;
+
         public void CreateContact(Contact contact)
         {
             var r = new Random();
             var id = r.Next(4, 40);
             contact.Id = id;
+            if (OnTransactionProcessed != null)
+            {
+                OnTransactionProcessed(this, new TransactionProcessedEventArgs(contact));
+            }
             _contacts.Add(contact);
         }
 

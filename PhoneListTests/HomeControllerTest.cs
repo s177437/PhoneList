@@ -16,16 +16,18 @@ namespace PhoneListTests
     {
         HomeController _controller;
         IContactsRepo _repository;
+        IAuditService _auditService;
         IMapper _mapper;
 
         public HomeControllerTest()
         {
             var contactprofile = new ContactProfile();
+            _auditService = new AuditService();
             _repository = new MockContactsRepo();
             var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile(contactprofile); });
             _mapper = mapperConfiguration.CreateMapper();
             var random = new Random();
-            _controller = new HomeController(_repository, _mapper);
+            _controller = new HomeController(_repository, _mapper, _auditService);
             
         }
 
@@ -89,7 +91,7 @@ namespace PhoneListTests
             //Act
             var okResult = _controller.CreateContact(contact).Result as CreatedAtRouteResult;
             var returnContact = (ContactReadDto)okResult.Value;
-
+            
             //Assert
             Assert.Equal("Jensemann", returnContact.Name);
         }
